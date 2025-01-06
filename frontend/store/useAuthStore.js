@@ -1,6 +1,7 @@
 import {create} from 'zustand';
 import { axiosInstance } from '../lib/axios.js';
 
+
 export const useAuthStore = create((set)=>({
    authUser:null,
    isSigningUp:false,
@@ -17,5 +18,14 @@ export const useAuthStore = create((set)=>({
     }finally{
         set({isCheckingAuth:false})
     }
+   },
+   signUp:async(data)=>{
+    try{
+        const response = await axiosInstance.post('/signup');
+        set({})
+    }catch(e){
+
+    }
+  
    }
 }))
