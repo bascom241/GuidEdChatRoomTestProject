@@ -3,20 +3,33 @@ import { useState } from 'react'
 import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare,User } from 'lucide-react';
 import { useAuthStore } from '../../store/useAuthStore';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import AuthImagePattern from '../components/AuthImagePattern';
 const SignUp = () => {
   const { signUp, isSigningUp } = useAuthStore();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    username: ''
+    userName: ''
   });
 
   const validateUser = () => {
+    if(!formData.userName) return toast.error("UserName is required");
+    if(!formData.email) return toast.error("Email is required");
+    if(!formData.password) return toast.error("Password is required");
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) return toast.error("Invalid email format")
+    if(formData.password.length < 5 ) return toast.error("Password must be at least 6 characters");
 
+    return true;
   }
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const success = validateUser();
 
+    if(success === true){
+      signUp(formData);
+    }
   }
 
 
@@ -46,8 +59,8 @@ const SignUp = () => {
                   type='text'
                   placeholder='Enter your username'
                   className={`input input-bordered w-full pl-10`}
-                  value={formData.username}
-                  onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                  value={formData.userName}
+                  onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
                 />
               </div>
 
@@ -122,8 +135,14 @@ const SignUp = () => {
           </div>
         </div>
       </div>
+      <AuthImagePattern
+        tittle="Join Our Community"
+        subtittle=" GuidED, Learn Anytime Anywhere AnyDay"
+      />
     </div>
   )
 }
 
 export default SignUp
+
+

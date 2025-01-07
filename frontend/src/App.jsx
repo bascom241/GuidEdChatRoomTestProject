@@ -10,6 +10,7 @@ import { axiosInstance } from "../lib/axios"
 import { useAuthStore } from "../store/useAuthStore"
 import { useEffect } from "react"
 import {Loader} from 'lucide-react'
+import {Toaster} from 'react-hot-toast'
 function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
 
@@ -32,6 +33,7 @@ function App() {
         <Route path='profile' element={authUser? <Profile />: <Navigate to="/login"/>} />
         <Route path='settings' element={<Setting />} />
       </Routes>
+      <Toaster position="top-right" reverseOrder={false} />
 
     </div>
   )

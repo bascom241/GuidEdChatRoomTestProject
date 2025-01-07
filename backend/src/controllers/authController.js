@@ -39,7 +39,8 @@ const signUp = async (req, res) => {
 
         res.status(200).json({ success: true, data: result });
     } catch (error) {
-        res.status(400).json({ message: error })
+        res.status(400).json({ message: error.message })
+        console.log(error);
     }
 
 }
