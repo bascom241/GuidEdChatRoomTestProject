@@ -25,7 +25,7 @@ app.use(cors({
 
 //Routes // 
 app.use('/api',userRouter);
-app.use('/api/message',messageRouter)
+app.use('/api/messages',messageRouter)
 
 connectDB();
 const port = process.env.PORT || 3000;
